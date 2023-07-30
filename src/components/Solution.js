@@ -8,24 +8,29 @@ function Solution() {
     const minInput = useRef(null);
     const secInput = useRef(null);
 
-    // Always get the minutes value
-    const minutesValue = (value) => {
-        // const value = minInput.current.value;
-        if (value < 10){
-            setMin(String(value).padStart(2, '0'))
-        }
-        else if (value > 59) {
-            const nValue = Math.floor(value/60);
-            const remainSec = value % 60;
-            setMin(String(nValue).padStart(2, '0'));
-            setSec(String(remainSec).padStart(2, '0'));
-        }
-        else {
-            setMin(value);
-        }
+    // Manage inputs
+    const manageInputValues = (mntvalue, secvalue) => {
+        mntvalue === '' ? mntvalue = 0 : mntvalue = mntvalue;
+        secvalue === '' ? secvalue = 0 : secvalue = secvalue;
+        const totalSeconds = parseInt(mntvalue) * 60 + parseInt(secvalue);
+        const totalMinutes = Math.floor(totalSeconds / 60);
+        const remainSeconds = totalSeconds % 60;
+        setMin(String(totalMinutes).padStart(2, '0'));
+        setSec(String(remainSeconds).padStart(2, '0'));
     }
 
-    // Handel the clicking of Reset button
+
+    // Handle the Start button
+    const start = () => {
+        setInterval(() => {
+            setSec((prevCount) => {
+                return String(parseInt(prevCount) + 1).padStart(2, '0');
+            });
+          }, 1000);
+        
+    }
+
+    // Handel button
     const reset = () => {
         setMin('00');
         setSec('00');
@@ -33,62 +38,20 @@ function Solution() {
         secInput.current.value = '';
     }
 
-    const start = () => {
-        // setInterval(setSec(parseInt(sec) + 1), 1000);
+
+    // Handel min and sec inputs onChange
+    const handleInputs = () => {
+        manageInputValues(minInput.current.value, secInput.current.value);
     }
-
-    // Handel min input onChange
-    const handleMin = (event) => {
-        const { value } = event.target;
-        setSec('00')
-        if (value < 10){
-            setMin(String(value).padStart(2, '0'))
-        }
-        else if (value > 59) {
-            const nValue = Math.floor(value/60);
-            const remainSec = value % 60;
-            setMin(String(nValue).padStart(2, '0'));
-            setSec(String(remainSec).padStart(2, '0'));
-        }
-        else {
-            setMin(value);
-        }
-    }
-
-
-    // Handel the second input onChange
-    const handsec = (event) => {
-        const { value } = event.target;
-        if (value < 59){
-            setSec(String(value).padStart(2, '0'));
-            setMin(String(minInput.current.value).padStart(2, '0'));
-            minutesValue(minInput.current.value);
-        } 
-        
-        else if (value > 59) {
-            const nValue = Math.floor(value/60);
-            const reminder = value % 60;
-            if (reminder < 10) {
-                setSec('0' + reminder);
-                setMin(parseInt(min) + nValue)
-            } else {
-                setSec(reminder);
-            }
-        }
-        
-        else {
-            setSec(value);
-        }
-    };
 
     return (
       <div className='p-4'>
         <label>
-          <input type="number" onChange={handleMin} min={0} ref={minInput} autoFocus />
+          <input type="number" onChange={handleInputs} min={0} ref={minInput} autoFocus />
           Minutes
         </label>
         <label>
-          <input type="number" onChange={handsec} min={0} ref={secInput} />
+          <input type="number" onChange={handleInputs} min={0} ref={secInput} />
           Seconds
         </label>
   
