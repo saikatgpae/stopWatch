@@ -8,6 +8,23 @@ function Solution() {
     const minInput = useRef(null);
     const secInput = useRef(null);
 
+    // Always get the minutes value
+    const minutesValue = (value) => {
+        // const value = minInput.current.value;
+        if (value < 10){
+            setMin(String(value).padStart(2, '0'))
+        }
+        else if (value > 59) {
+            const nValue = Math.floor(value/60);
+            const remainSec = value % 60;
+            setMin(String(nValue).padStart(2, '0'));
+            setSec(String(remainSec).padStart(2, '0'));
+        }
+        else {
+            setMin(value);
+        }
+    }
+
     // Handel the clicking of Reset button
     const reset = () => {
         setMin('00');
@@ -23,6 +40,7 @@ function Solution() {
     // Handel min input onChange
     const handleMin = (event) => {
         const { value } = event.target;
+        setSec('00')
         if (value < 10){
             setMin(String(value).padStart(2, '0'))
         }
@@ -44,6 +62,7 @@ function Solution() {
         if (value < 59){
             setSec(String(value).padStart(2, '0'));
             setMin(String(minInput.current.value).padStart(2, '0'));
+            minutesValue(minInput.current.value);
         } 
         
         else if (value > 59) {
