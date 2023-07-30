@@ -1,10 +1,10 @@
-// import { time } from 'console';
 import React, { useRef, useState } from 'react';
 
 
 function Solution() {
     const [min, setMin] = useState('00');
     const [sec, setSec] = useState('00');
+    const [intervalId, setIntervalId] = useState(0);
     const minInput = useRef(null);
     const secInput = useRef(null);
 
@@ -20,17 +20,38 @@ function Solution() {
     }
 
 
-    // Handle the Start button
-    const start = () => {
-        setInterval(() => {
-            setSec((prevCount) => {
-                return String(parseInt(prevCount) + 1).padStart(2, '0');
-            });
-          }, 1000);
-        
+    // start stop watch function
+    const startWatch = () => {
+        setSec((prevCount) => {
+            if (parseInt(prevCount) === 59) {
+                setMin((prevCoun) => {
+                    return String(parseInt(prevCoun) + 1).padStart(2, '0');
+                });
+                setSec('00');
+            }
+            return String(parseInt(prevCount) + 1).padStart(2, '0');
+        });      
     }
 
-    // Handel button
+    // Start the stop watch
+    const start = () => {
+        const newIntervalId = setInterval(startWatch, 1000);
+        setIntervalId(newIntervalId);
+    }
+
+    // Pause the stop watch
+    const pauseStopatch = () => {
+        console.log('paused');
+        if(intervalId) {
+          clearInterval(intervalId);
+          setIntervalId(0);
+          return;
+        }
+        const newIntervalId = setInterval(startWatch, 1000);
+        setIntervalId(newIntervalId);
+    };
+
+    // Handel Reset button
     const reset = () => {
         setMin('00');
         setSec('00');
@@ -56,7 +77,7 @@ function Solution() {
         </label>
   
         <button onClick={start}>START</button>
-        <button>PAUSE / RESUME</button>
+        <button onClick={pauseStopatch}>PAUSE / RESUME</button>
         <button onClick={reset}>RESET</button>
   
         <h1 data-testid="running-clock">{min}:{sec}</h1>
