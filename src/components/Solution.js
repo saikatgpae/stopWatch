@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import './Solution.css';
 
 
 function Solution() {
@@ -66,21 +67,23 @@ function Solution() {
     }
 
     return (
-      <div className='p-4'>
+      <div className='main p-4'>
         <label>
-          <input type="number" onChange={handleInputs} min={0} ref={minInput} autoFocus />
+          <input className="min" type="number" onChange={handleInputs} min={0} ref={minInput} autoFocus />
+          <br />
           Minutes
         </label>
         <label>
-          <input type="number" onChange={handleInputs} min={0} ref={secInput} />
+          <input className="sec" type="number" onChange={handleInputs} min={0} ref={secInput} />
           Seconds
         </label>
-  
-        <button onClick={start}>START</button>
-        <button onClick={pauseStopatch}>PAUSE / RESUME</button>
-        <button onClick={reset}>RESET</button>
-  
-        <h1 data-testid="running-clock">{min}:{sec}</h1>
+        <br />
+        <br />
+        <button className="start m-2" onClick={start}>START</button>
+        <button className="pause m-2" onClick={pauseStopatch}>PAUSE / RESUME</button>
+        <button className="reset m-2" onClick={reset}>RESET</button>
+        <br />
+        <h1 className="display" data-testid="running-clock">{min}:{sec}</h1>
       </div>
     );
   }
