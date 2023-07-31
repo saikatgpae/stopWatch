@@ -1,6 +1,16 @@
-* {
-  background-color: rgb(224, 220, 212);
+.main {
+    color: white;
+  background-color: rgb(58, 48, 48);
 }
+
+.start,
+  .pause,
+  .reset {
+    border-color: rgb(4, 200, 249);
+    /* color: white; */
+    margin: 20px;
+    /* background-color: rgb(6, 46, 245); */
+  }
 
 @media screen and (max-width: 768px) {
   .main {
@@ -16,6 +26,7 @@
   .start,
   .pause,
   .reset {
+    border-color: beige;
     color: white;
     margin: 20px;
     background-color: rgb(6, 46, 245);
