@@ -37,7 +37,7 @@ function Solution() {
     setIntervalId(newIntervalId);
   };
 
-  // // Pause the stop watch
+  // Pause the stop watch
   // const pauseStopatch = () => {
   //   // console.log('paused');
   //   if (intervalId) {
