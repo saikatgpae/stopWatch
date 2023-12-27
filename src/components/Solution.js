@@ -37,17 +37,17 @@ function Solution() {
     setIntervalId(newIntervalId);
   };
 
-  // Pause the stop watch
-  const pauseStopatch = () => {
-    // console.log('paused');
-    if (intervalId) {
-      clearInterval(intervalId);
-      setIntervalId(0);
-      return;
-    }
-    const newIntervalId = setInterval(startWatch, 1000);
-    setIntervalId(newIntervalId);
-  };
+  // // Pause the stop watch
+  // const pauseStopatch = () => {
+  //   // console.log('paused');
+  //   if (intervalId) {
+  //     clearInterval(intervalId);
+  //     setIntervalId(0);
+  //     return;
+  //   }
+  //   const newIntervalId = setInterval(startWatch, 1000);
+  //   setIntervalId(newIntervalId);
+  // };
 
   // Handel Reset button
   const reset = () => {
